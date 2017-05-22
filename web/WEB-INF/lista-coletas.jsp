@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>Lista de Coletas</h1>
-        <table>
+        <table border="1">
             <tr>
                 <th>ID: </th>
                 <th>Descrição:</th>
@@ -16,7 +16,10 @@
             </tr>
             <c:forEach var="coleta" items="${coletas}">
                 <tr>
-                    <td>${coleta.id}</td>
+                    <td>
+                        <a href="detalhe.html?id=${coleta.id}" title="Detalhes sobre a coleta">
+                            ${coleta.id}</a>
+                    </td>
                     <td>${coleta.descricao}</td>
                     <td>${coleta.data}</td>
                 </tr>
