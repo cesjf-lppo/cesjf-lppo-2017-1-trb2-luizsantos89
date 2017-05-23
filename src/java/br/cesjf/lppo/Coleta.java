@@ -2,6 +2,7 @@ package br.cesjf.lppo;
 
 import java.util.Date;
 
+
 public class Coleta {
     private Long id;
     private String descricao;

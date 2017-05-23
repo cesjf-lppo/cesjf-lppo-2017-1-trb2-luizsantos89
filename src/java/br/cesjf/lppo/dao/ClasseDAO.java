@@ -21,9 +21,7 @@ public class ClasseDAO {
         opNovaColeta = conexao.prepareStatement("INSERT INTO coleta(descricao) VALUES (?)");
         opNovaLeitura = conexao.prepareCall("INSERT INTO leitura(coleta,local,leitura,unidade) values (?,?,?,?)");
         opListarColetas = conexao.prepareStatement("SELECT * FROM coleta");
-        opListaColetaById = conexao.prepareStatement("SELECT c.ID as ID_Coleta, c.DESCRICAO, c.DATA,l.ID as ID_Leitura, l.LOCAL, "
-                + "                                 l.LEITURA, l.UNIDADE, l.ATUALIZACAO FROM COLETA AS c INNER JOIN LEITURA AS l "
-                + "                                 ON c.ID = l.COLETA WHERE id = ?");
+        opListaColetaById = conexao.prepareStatement("SELECT * FROM coleta WHERE id = ?");
     }
     
     public void cria(Coleta novaColeta) throws Exception {
@@ -67,20 +65,12 @@ public class ClasseDAO {
     
     public Coleta listColeta(Long id) throws Exception {
         try{
-            Leitura leitura = new Leitura();
             Coleta coleta = new Coleta();
             opListaColetaById.setLong(1,id);
             ResultSet resultado = opListaColetaById.executeQuery();
-            while(resultado.next()) {
-                coleta.setId(resultado.getLong(1));
-                coleta.setDescricao(resultado.getString(2));
-                coleta.setData(resultado.getDate(3));
-                leitura.setId(resultado.getLong(4));
-                leitura.setLocal(resultado.getString(5));
-                leitura.setLeitura(resultado.getDouble(6));
-                leitura.setUnidade(resultado.getString(7));
-                leitura.setAtualizacao(resultado.getDate(8));
-            }
+            coleta.setId(resultado.getLong(1));
+            coleta.setDescricao(resultado.getString(2));
+            coleta.setData(resultado.getDate(3));
             return coleta;
         } catch (SQLException ex){
             throw new Exception("Erro ao recuperar a coleta", ex);

@@ -36,6 +36,7 @@ public class NovaColeta extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/nova-coleta.jsp").forward(request, response);
             return;
         }
+        
         response.sendRedirect("lista-coletas.html");
         
     }
