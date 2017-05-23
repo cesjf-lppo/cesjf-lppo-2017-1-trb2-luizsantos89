@@ -20,10 +20,13 @@
                         <a href="nova-leitura.html?id=${coleta.id}" title="Cadastrar pontos de leitura para essa coleta">
                             ${coleta.id}</a>
                     </td>
-                    <td>${coleta.descricao}</td>
+                    <td><a href="lista-leituras.html?id=${coleta.id}" title="Listagem de leituras para essa coleta">
+                            ${coleta.descricao}</a>
+                    </td>
                     <td>${coleta.data}</td>
                 </tr>
             </c:forEach>
         </table>
+        <a href="nova-coleta.html">Nova Coleta</a>
     </body>
 </html>

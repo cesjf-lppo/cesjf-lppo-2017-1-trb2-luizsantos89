@@ -6,10 +6,10 @@ CREATE TABLE Coleta(
 
 CREATE TABLE Leitura(
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    coleta INTEGER NOT NULL,
-    local VARCHAR(100) NOT NULL,
-    leitura REAL NOT NULL,
-    unidade VARCHAR(100) NOT NULL,
+    coleta INTEGER,
+    local VARCHAR(100),
+    leitura REAL,
+    unidade VARCHAR(100),
     atualizacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FK_Coleta FOREIGN KEY (coleta) REFERENCES Coleta(id)
 );

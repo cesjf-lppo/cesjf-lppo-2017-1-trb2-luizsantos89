@@ -17,7 +17,6 @@
                         <select name="coleta">
                             <c:forEach var="coleta" items="${coletas}">
                                 <option value="${coleta.id}">${coleta.descricao}</option>
-                                <input type="hidden" value="${coleta.id}" name="id" />
                             </c:forEach>
                         </select>
                     </td>

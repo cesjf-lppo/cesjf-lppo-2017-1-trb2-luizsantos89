@@ -6,6 +6,7 @@ import java.util.Date;
 public class Leitura {
     private Long id;
     private Long coleta;
+    private String descricaoColeta;
     private String local;
     private Double leitura;
     private String unidade;
@@ -57,5 +58,13 @@ public class Leitura {
 
     public void setAtualizacao(Date atualizacao) {
         this.atualizacao = atualizacao;
+    }
+    
+    public String getDescricaoColeta() {
+        return descricaoColeta;
+    }
+    
+    public void setDescricaoColeta(String descricaoColeta){
+        this.descricaoColeta = descricaoColeta;
     }
 }

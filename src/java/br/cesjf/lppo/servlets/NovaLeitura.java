@@ -39,6 +39,17 @@ public class NovaLeitura extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Leitura leitura = new Leitura();
-        leitura.setColeta(Long.parseLong(request.getParameter("id")));
+        leitura.setColeta(Long.parseLong(request.getParameter("coleta")));
+        leitura.setUnidade(request.getParameter("unidade"));
+        leitura.setLocal(request.getParameter("local"));
+        try {
+            ClasseDAO dao = new ClasseDAO();
+            dao.criaLeitura(leitura);
+        } catch (Exception ex) {
+            Logger.getLogger(NovaLeitura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        response.sendRedirect("lista-leituras.html");
     }
 }
