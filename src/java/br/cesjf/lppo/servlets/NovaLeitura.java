@@ -39,7 +39,7 @@ public class NovaLeitura extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Leitura leitura = new Leitura();
-        leitura.setColeta(Long.parseLong(request.getParameter("coleta")));
+        leitura.setColeta(Long.parseLong(request.getParameter("idColeta")));
         leitura.setUnidade(request.getParameter("unidade"));
         leitura.setLocal(request.getParameter("local"));
         try {
@@ -48,8 +48,6 @@ public class NovaLeitura extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(NovaLeitura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        response.sendRedirect("lista-leituras.html");
+        response.sendRedirect("lista-coletas.html");
     }
 }

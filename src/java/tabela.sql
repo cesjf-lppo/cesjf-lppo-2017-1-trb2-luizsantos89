@@ -13,3 +13,7 @@ CREATE TABLE Leitura(
     atualizacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FK_Coleta FOREIGN KEY (coleta) REFERENCES Coleta(id)
 );
+
+SELECT * FROM Coleta AS c INNER JOIN Leitura AS l ON c.ID = l.COLETA;
+
+DELETE * FROM Coleta;

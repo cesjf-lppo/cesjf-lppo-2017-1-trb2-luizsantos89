@@ -14,9 +14,9 @@
                 <tr>
                     <td>Coleta:</td>
                     <td>
-                        <select name="coleta">
-                            <c:forEach var="coleta" items="${coletas}">
-                                <option value="${coleta.id}">${coleta.descricao}</option>
+                        <select name="idColeta">
+                            <c:forEach var="coleta" items="${coletas}">                                
+                                <option value="${coleta.id}">${coleta.id} - ${coleta.descricao}</option>
                             </c:forEach>
                         </select>
                     </td>

@@ -10,23 +10,20 @@
         <h1>Lista de Coletas</h1>
         <table border="1">
             <tr>
-                <th>Adicionar<br />leituras: </th>
                 <th>Descrição:</th>
                 <th>Data:</th>
             </tr>
             <c:forEach var="coleta" items="${coletas}">
                 <tr>
-                    <td align="center">
-                        <a href="nova-leitura.html?id=${coleta.id}" title="Cadastrar pontos de leitura para essa coleta">
-                            ${coleta.id}</a>
-                    </td>
-                    <td><a href="lista-leituras.html?id=${coleta.id}" title="Listagem de leituras para essa coleta">
+                    <td>ID: ${coleta.id}</td>
+                    <td><a href="lista-leituras.html?coleta=${coleta.id}" title="Listagem de leituras para essa coleta">
                             ${coleta.descricao}</a>
                     </td>
                     <td>${coleta.data}</td>
                 </tr>
             </c:forEach>
         </table>
+        <a href="nova-leitura.html">Cadastrar pontos de leitura</a>
         <a href="nova-coleta.html">Nova Coleta</a>
     </body>
 </html>
