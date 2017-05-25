@@ -1,12 +1,17 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Lista de Leituras para a Coleta:</title>
+        <title>Lista Leituras</title>
+        <link rel="stylesheet" href="CSS/estilo.css"/>
     </head>
     <body>
+    <center>
+        <div id="pagina">
+            <%@include file="jspf/menu.jspf" %>
         <h1>Lista de Leituras:</h1>
         <table border="1">
             <tr>
@@ -33,6 +38,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <a href="lista-coletas.html">Coletas</a>
+        </div>
+    </center>
     </body>
 </html>

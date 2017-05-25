@@ -34,8 +34,19 @@ public class InsereLeitura extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long id = Long.parseLong(request.getParameter("id"));
-        Double dados = Double.parseDouble(request.getParameter("leitura"));
+        
+        Leitura leitura = new Leitura();
+        leitura.setId(Long.parseLong(request.getParameter("id")));
+        leitura.setLeitura(Double.parseDouble(request.getParameter("leitura")));
+        
+        try {
+            ClasseDAO dao = new ClasseDAO();
+            dao.atualizaLeitura(leitura);
+        } catch (Exception ex) {
+            Logger.getLogger(InsereLeitura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        response.sendRedirect("lista-coletas.html");
         
     }
 

@@ -86,9 +86,9 @@ public class ClasseDAO {
     
     public void atualizaLeitura(Leitura leitura) throws Exception {
         try {
-            opAtualizaLeitura.setLong(1, leitura.getId());
-            opNovaLeitura.setDouble(2, leitura.getLeitura());
-            opNovaLeitura.executeUpdate();
+            opAtualizaLeitura.setDouble(1, leitura.getLeitura());
+            opAtualizaLeitura.setLong(2, leitura.getId());
+            opAtualizaLeitura.executeUpdate();
         }catch (SQLException ex){
             throw new Exception("Erro ao gravar a coleta", ex);
         }

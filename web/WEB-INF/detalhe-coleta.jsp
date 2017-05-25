@@ -1,11 +1,17 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Detalhe Coleta ${coleta.descricao}</title>
+        <title>Detalhe da coleta: ${coleta.descricao}</title>
+        <link rel="stylesheet" href="CSS/estilo.css"/>
     </head>
     <body>
+    <center>
+        <div id="pagina">
+            <%@include file="jspf/menu.jspf" %>
         <h1>Detalhes da coleta ${coleta.descricao}</h1>
         
         <form method="post">
@@ -33,5 +39,7 @@
                 </tr>
             </table>
         </form>
+        </div>
+    </center>
     </body>
 </html>
