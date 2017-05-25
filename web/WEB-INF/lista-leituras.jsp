@@ -18,9 +18,16 @@
             </tr>
             <c:forEach var="leitura" items="${leituras}">
                 <tr>
-                    <td>${leitura.coleta}</td>
-                    <td><a href="lista-por-local.html?local=${leitura.local}">${leitura.local}</a></td>
-                    <td>${leitura.leitura}</td>
+                    <td><a href="lista-leituras.html?coleta=${leitura.coleta}">${leitura.coleta}</a></td>
+                    <td><a href="lista-leituras.html?local=${leitura.local}">${leitura.local}</a></td>
+                    <td>
+                        <c:if test="${leitura.leitura==0.0}">
+                            <a href="insere-leitura.html?id=${leitura.id}">Inserir dados</a>
+                        </c:if>
+                        <c:if test="${leitura.leitura!=0.0}">
+                            ${leitura.leitura}
+                        </c:if>
+                    </td>
                     <td>${leitura.unidade}</td>
                     <td>${leitura.atualizacao}</td>
                 </tr>

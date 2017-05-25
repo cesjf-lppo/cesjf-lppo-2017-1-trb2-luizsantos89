@@ -15,6 +15,7 @@ public class ClasseDAO {
     private final PreparedStatement opNovaLeitura;
     private final PreparedStatement opListarColetas;
     private final PreparedStatement opListaColetaById;
+    private final PreparedStatement opListaLeituraById;
     private final PreparedStatement opAtualizaLeitura;
     private final PreparedStatement opListaLeituraPorColeta;
     private final PreparedStatement opListaLeituraPorLocal;
@@ -25,9 +26,10 @@ public class ClasseDAO {
         opNovaLeitura = conexao.prepareCall("INSERT INTO leitura(coleta,unidade,local) values (?,?,?)");
         opListarColetas = conexao.prepareStatement("SELECT * FROM coleta");
         opListaColetaById = conexao.prepareStatement("SELECT * FROM coleta WHERE id = ?");
+        opListaLeituraById = conexao.prepareStatement("SELECT * FROM leitura WHERE id = ?");
         opAtualizaLeitura = conexao.prepareStatement("UPDATE leitura SET leitura = ?, atualizacao = CURRENT_TIMESTAMP WHERE id = ?");
         opListaLeituraPorColeta = conexao.prepareStatement("SELECT C.DESCRICAO, L.* FROM COLETA C INNER JOIN LEITURA L ON C.ID = L.COLETA WHERE C.ID = ?");
-        opListaLeituraPorLocal = conexao.prepareStatement("SELECT C.DESCRICAO, L.* FROM COLETA C INNER JOIN LEITURA L ON C.ID = L.COLETA WHERE L.LOCAL = '?'");
+        opListaLeituraPorLocal = conexao.prepareStatement("SELECT C.DESCRICAO, L.* FROM COLETA C INNER JOIN LEITURA L ON C.ID = L.COLETA WHERE L.local = ?");
     }
     
     public void cria(Coleta novaColeta) throws Exception {
@@ -92,6 +94,28 @@ public class ClasseDAO {
         }
     }
     
+    public List<Leitura> listaLeituraPorLocal(String local) throws Exception{
+        try {
+            List<Leitura> leituras = new ArrayList<>();
+            opListaLeituraPorLocal.setString(1, local);
+            ResultSet resultado = opListaLeituraPorLocal.executeQuery();
+            while(resultado.next()) {
+                Leitura leitura = new Leitura();
+                leitura.setDescricaoColeta(resultado.getString(1));
+                leitura.setId(resultado.getLong(2));
+                leitura.setColeta(resultado.getLong(3));
+                leitura.setLocal(resultado.getString(4));
+                leitura.setLeitura(resultado.getDouble(5));
+                leitura.setUnidade(resultado.getString(6));
+                leitura.setAtualizacao(resultado.getDate(7));
+                leituras.add(leitura);
+            }
+            return leituras;
+        } catch (SQLException ex) {
+            throw new Exception("Erro ao listar as leituras",ex);
+        }
+    }
+    
     public List<Leitura> listaLeituraPorColeta(Long coleta) throws Exception{
         try {
             List<Leitura> leituras = new ArrayList<>();
@@ -114,27 +138,18 @@ public class ClasseDAO {
         }
     }
     
-    public List<Leitura> opListaLeituraPorLocal(String local) throws Exception{
-        try {
-            List<Leitura> leituras = new ArrayList<>();
-            opListaLeituraPorColeta.setString(1, local);
-            ResultSet resultado = opListaLeituraPorColeta.executeQuery();
-            while(resultado.next()) {
-                Leitura leitura = new Leitura();
-                leitura.setDescricaoColeta(resultado.getString(1));
-                leitura.setId(resultado.getLong(2));
-                leitura.setColeta(resultado.getLong(3));
-                leitura.setLocal(resultado.getString(4));
-                leitura.setLeitura(resultado.getDouble(5));
-                leitura.setUnidade(resultado.getString(6));
-                leitura.setAtualizacao(resultado.getDate(7));
-                leituras.add(leitura);
-            }
-            return leituras;
-        } catch (SQLException ex) {
-            throw new Exception("Erro ao listar as leituras",ex);
+    public Leitura listaLeituraPorId(Long id) throws Exception {
+        Leitura leitura = new Leitura();
+        opListaLeituraById.setLong(1,id);
+        ResultSet resultado = opListaLeituraById.executeQuery();
+        while(resultado.next()) {
+            leitura.setId(resultado.getLong(1));
+            leitura.setColeta(resultado.getLong(2));
+            leitura.setLocal(resultado.getString(3));
+            leitura.setLeitura(resultado.getDouble(4));
+            leitura.setUnidade(resultado.getString(5));
+            leitura.setAtualizacao(resultado.getDate(6));
         }
+        return leitura;
     }
-      
-    //opListaLeituraPorLocal
 }

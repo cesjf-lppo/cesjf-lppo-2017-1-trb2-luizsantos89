@@ -19,20 +19,39 @@ public class ListaLeituras extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long coleta = Long.parseLong(request.getParameter("coleta"));
-        List<Leitura> leituras;
         
-        try {
-            ClasseDAO dao = new ClasseDAO();
-            leituras = dao.listaLeituraPorColeta(coleta);
-        } catch (Exception ex) {
-            leituras = new ArrayList<>();
-            Logger.getLogger(ListaLeituras.class.getName()).log(Level.SEVERE, null, ex);
+        Long coleta = null;
+        if (request.getParameter("coleta")!=null) {
+            coleta = Long.parseLong(request.getParameter("coleta"));
         }
         
-        request.setAttribute("leituras",leituras);
-        request.getRequestDispatcher("/WEB-INF/lista-leituras.jsp").forward(request, response);
+        String local = request.getParameter("local");
+        List<Leitura> leituras;
         
+        if(local==null) {
+            try {
+                ClasseDAO dao = new ClasseDAO();
+                leituras = dao.listaLeituraPorColeta(coleta);
+            } catch (Exception ex) {
+                leituras = new ArrayList<>();
+                Logger.getLogger(ListaLeituras.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.setAttribute("leituras",leituras);
+            request.getRequestDispatcher("/WEB-INF/lista-leituras.jsp").forward(request, response);
+        } else {
+            try {
+                ClasseDAO dao = new ClasseDAO();
+                System.out.println(local);
+                leituras = dao.listaLeituraPorLocal(local);
+            } catch (Exception ex) {
+                leituras = new ArrayList<>();
+                Logger.getLogger(ListaLeituras.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.setAttribute("leituras",leituras);
+            request.getRequestDispatcher("/WEB-INF/lista-leituras.jsp").forward(request, response);
+        }
     }
     
     @Override
